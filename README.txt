@@ -11,4 +11,8 @@ To get started, make a clone of this repo in a directory of your choice, then op
 We will update whenever we get the chance to fix any bugs or think of a new idea to put in. To get these changes from the GitHub server, run a git pull when you have cd'd to the folder that you initialized the repo to.
 
 Hope this helps some people, I know we had a lot of fun making it!
+<<<<<<< HEAD
 - Luke and Jacob Klinker
+=======
+- Luke and Jacob Klinker
+>>>>>>> fc1abdf340b9ca61ccfb3480ca311975aac6afcb
