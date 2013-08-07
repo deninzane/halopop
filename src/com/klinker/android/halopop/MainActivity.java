@@ -229,6 +229,8 @@ public class MainActivity extends PreferenceActivity {
 
                 AlertDialog nopa_dialog = builder.create();
                 nopa_dialog.show();
+            } else {
+                checkNotificationListenerEnabled();
             }
         }
     }
