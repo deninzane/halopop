@@ -12,3 +12,12 @@ We will update whenever we get the chance to fix any bugs or think of a new idea
 
 Hope this helps some people, I know we had a lot of fun making it!
 - Luke and Jacob Klinker
+
+
+Ideas:
+	- Simple app like the HALO)))
+	- Allows users to select which apps they would like to launch in halo automatically on new notification
+	- Makes a popup available for any app... Messaging, Hangouts, Facebook, Falcon, really whatever app you want to launch automatically on a notification
+	- Open Source and free on the play store
+	- Apply new Notification Listener APIs (only for Android 4.3 and above, would also get rid of people downloading and rating it low because they don't know what it does...)
+	- Should be simple enough to make, I've already done it all in Sliding Messaging, and sounds like a pretty applicable app to me.
