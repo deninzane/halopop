@@ -7,13 +7,14 @@
             android:title="@string/use_service"
             android:defaultValue="true" />
 
+    <!-- Commented out for now, until we can actually get the intent and make it work
     <ListPreference
             android:key="run_as"
             android:title="@string/run_as"
             android:defaultValue="popup"
             android:entries="@array/runAs"
             android:entryValues="@array/runAsInserted"
-            android:dependency="use_service"/>
+            android:dependency="use_service"/> -->
 
     <CheckBoxPreference
             android:key="unlock_settings"
