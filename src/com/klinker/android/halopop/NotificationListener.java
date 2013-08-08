@@ -33,6 +33,8 @@ public class NotificationListener extends NotificationListenerService {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
         // get the pending intent of the notification and package name
         PendingIntent pIntent = sbn.getNotification().contentIntent;
         String creatorPackage = pIntent.getCreatorPackage();
@@ -40,24 +42,27 @@ public class NotificationListener extends NotificationListenerService {
         // get apps that are to be used by halo pop
         String[] activeApps = Utils.loadArray(this);
 
-        for (int i = 0; i < activeApps.length; i++) {
-            if (activeApps[i].equals(creatorPackage)) {
-                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        if(pm.isScreenOn() || (!pm.isScreenOn() && sharedPrefs.getBoolean("unlock_settings", true)))
+        {
+            for (int i = 0; i < activeApps.length; i++) {
+                if (activeApps[i].equals(creatorPackage)) {
+                    pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-                if (pm.isScreenOn()) {
-                    // if app is to be used, then apply the pending intent with added flag for multiwindow
-                    try {
-                        pIntent.send(this, 0, new Intent().addFlags(0x00002000));
-                    } catch (Exception e) {
-                        // pending intent was cancelled...
+                    if (pm.isScreenOn()) {
+                        // if app is to be used, then apply the pending intent with added flag for multiwindow
+                        try {
+                            pIntent.send(this, 0, new Intent().addFlags(0x00002000));
+                        } catch (Exception e) {
+                            // pending intent was cancelled...
+                        }
+                    } else {
+                        // Store pending intent to be activated when screen unlocked
+                        UnlockReceiver.openApp = true;
+                        UnlockReceiver.pIntent = pIntent;
                     }
-                } else  if (sharedPrefs.getBoolean("unlock_settings", true)) {
-                    // Store pending intent to be activated when screen unlocked
-                    UnlockReceiver.openApp = true;
-                    UnlockReceiver.pIntent = pIntent;
-                }
 
-                break;
+                    break;
+                }
             }
         }
     }
