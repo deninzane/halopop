@@ -15,7 +15,7 @@ public class UnlockReceiver extends BroadcastReceiver {
         // Receiver will be invoked when device is unlocked and send pending intent to start notification
         if (intent.getAction() != null && openApp == true && pIntent != null) {
             try {
-                pIntent.send(context, 0, new Intent().addFlags(0x00002000));
+                pIntent.send(context, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
                 openApp = false;
                 pIntent = null;
             } catch (Exception e) {
