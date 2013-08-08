@@ -47,7 +47,7 @@ public class NotificationListener extends NotificationListenerService {
                 if (pm.isScreenOn()) {
                     // if app is to be used, then apply the pending intent with added flag for multiwindow
                     try {
-                        pIntent.send(this, 0, new Intent().addFlags(0x00002000));
+                        pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
                     } catch (Exception e) {
                         // pending intent was cancelled...
                     }
