@@ -20,7 +20,9 @@ package com.klinker.android.halopop;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
@@ -28,6 +30,9 @@ public class NotificationListener extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         // get the pending intent of the notification and package name
         PendingIntent pIntent = sbn.getNotification().contentIntent;
         String creatorPackage = pIntent.getCreatorPackage();
@@ -46,7 +51,7 @@ public class NotificationListener extends NotificationListenerService {
                     } catch (Exception e) {
                         // pending intent was cancelled...
                     }
-                } else {
+                } else  if (sharedPrefs.getBoolean("unlock_settings", true)) {
                     // Store pending intent to be activated when screen unlocked
                     UnlockReceiver.openApp = true;
                     UnlockReceiver.pIntent = pIntent;

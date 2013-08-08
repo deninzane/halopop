@@ -40,6 +40,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+                android:name=".SettingsActivity"
+                android:label="@string/settings"
+                android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+                android:excludeFromRecents="true"
+                android:configChanges="orientation" >
+        </activity>
+
         <service android:name=".NotificationListener"
                  android:label="@string/app_name"
                  android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">

@@ -51,6 +51,7 @@ import android.widget.ListView;
 public class MainActivity extends PreferenceActivity {
 
     private static final int MENU_ADD = 0;
+    private static final int MENU_SETTINGS = 1;
 
     private Context mContext;
 
@@ -105,6 +106,10 @@ public class MainActivity extends PreferenceActivity {
         menu.add(Menu.NONE, MENU_ADD, 0, R.string.add)
             .setIcon(R.drawable.ic_add)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+        // create a menu item to add settings in the overflow area
+        menu.add(Menu.NONE, MENU_SETTINGS, 0, R.string.settings)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
 
@@ -154,6 +159,10 @@ public class MainActivity extends PreferenceActivity {
 
                 dialog.show();
                 break;
+            case MENU_SETTINGS:
+
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
