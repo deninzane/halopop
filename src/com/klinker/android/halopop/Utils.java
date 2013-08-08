@@ -36,6 +36,8 @@ import java.util.List;
 public class Utils {
 
     private static final String ITEMS = "items";
+    
+    public static final int FLAG_PA_MULTIWINDOW = 0x00002000;
 
     // tell if package is installed on device or not
     public static boolean packageExists(Context context, String targetPackage) {

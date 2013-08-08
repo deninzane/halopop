@@ -33,6 +33,6 @@
     <string name="notification_listener_continue">Continue</string>
 
     <string name="unlock_settings">Open under lockscreen</string>
-    <string name="unlock_settings_summary">Enable to pull up floating window after lockscreen is unlocked</string>
+    <string name="unlock_settings_summary">Enable to pull up floating window after lockscreen is unlocked. Not checking this will cause popups not to show if your device is locked when message is received</string>
 
 </resources>
