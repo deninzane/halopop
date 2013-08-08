@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="runAs">
+        <item>Notification</item>
+        <item>Auto-Popup</item>
+    </string-array>
+
+    <string-array name="runAsInserted">
+        <item>notification</item>
+        <item>popup</item>
+    </string-array>
+
+</resources>

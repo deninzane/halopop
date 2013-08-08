@@ -33,36 +33,40 @@ public class NotificationListener extends NotificationListenerService {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-
-        // get the pending intent of the notification and package name
-        PendingIntent pIntent = sbn.getNotification().contentIntent;
-        String creatorPackage = pIntent.getCreatorPackage();
-
-        // get apps that are to be used by halo pop
-        String[] activeApps = Utils.loadArray(this);
-
-        // check if this should run or not under the lockscreen
-        if(pm.isScreenOn() || (!pm.isScreenOn() && sharedPrefs.getBoolean("unlock_settings", true)))
+        // checks if the user has enabled halopop or not
+        if(sharedPrefs.getBoolean("use_service", true))
         {
-            for (int i = 0; i < activeApps.length; i++) {
-                if (activeApps[i].equals(creatorPackage)) {
-                    pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-                    if (pm.isScreenOn()) {
-                        // if app is to be used, then apply the pending intent with added flag for multiwindow
-                        try {
-                            pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
-                        } catch (Exception e) {
-                            // pending intent was cancelled...
+            // get the pending intent of the notification and package name
+            PendingIntent pIntent = sbn.getNotification().contentIntent;
+            String creatorPackage = pIntent.getCreatorPackage();
+
+            // get apps that are to be used by halo pop
+            String[] activeApps = Utils.loadArray(this);
+
+            // check if this should run or not under the lockscreen
+            if(pm.isScreenOn() || (!pm.isScreenOn() && sharedPrefs.getBoolean("unlock_settings", true)))
+            {
+                for (int i = 0; i < activeApps.length; i++) {
+                    if (activeApps[i].equals(creatorPackage)) {
+                        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
+                        if (pm.isScreenOn()) {
+                            // if app is to be used, then apply the pending intent with added flag for multiwindow
+                            try {
+                                pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
+                            } catch (Exception e) {
+                                // pending intent was cancelled...
+                            }
+                        } else {
+                            // Store pending intent to be activated when screen unlocked
+                            UnlockReceiver.openApp = true;
+                            UnlockReceiver.pIntent = pIntent;
                         }
-                    } else {
-                        // Store pending intent to be activated when screen unlocked
-                        UnlockReceiver.openApp = true;
-                        UnlockReceiver.pIntent = pIntent;
-                    }
 
-                    break;
+                        break;
+                    }
                 }
             }
         }

@@ -3,9 +3,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
+            android:key="use_service"
+            android:title="@string/use_service"
+            android:defaultValue="true" />
+
+    <ListPreference
+            android:key="run_as"
+            android:title="@string/run_as"
+            android:defaultValue="popup"
+            android:entries="@array/runAs"
+            android:entryValues="@array/runAsInserted"
+            android:dependency="use_service"/>
+
+    <CheckBoxPreference
             android:key="unlock_settings"
             android:title="@string/unlock_settings"
             android:summary="@string/unlock_settings_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:dependency="use_service" />
 
 </PreferenceScreen>

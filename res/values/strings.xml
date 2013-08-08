@@ -32,7 +32,9 @@
     <string name="notification_listener_content">Before continuing with the app, you must allow HaloPop access to notifications.</string>
     <string name="notification_listener_continue">Continue</string>
 
+    <string name="use_service">Enable HaloPop</string>
     <string name="unlock_settings">Open under lockscreen</string>
     <string name="unlock_settings_summary">Enable to pull up floating window after lockscreen is unlocked. Not checking this will cause popups not to show if your device is locked when message is received</string>
+    <string name="run_as">Access to Halo Popups</string>
 
 </resources>
