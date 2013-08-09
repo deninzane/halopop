@@ -134,4 +134,9 @@ public class Utils {
         }
         return null;
     }
+
+    // check if the current running is the same we are about to start, which we don't want
+    public static boolean checkRunning(String packageName) {
+        return false;
+    }
 }

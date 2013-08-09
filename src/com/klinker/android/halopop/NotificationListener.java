@@ -34,10 +34,8 @@ public class NotificationListener extends NotificationListenerService {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // checks if the user has enabled halopop or not
-        if(sharedPrefs.getBoolean("use_service", true))
-        {
-            if(sharedPrefs.getString("run_as", "popup").equals("popup")) // if the user has it set up to open as an auto popup
-            {
+        if(sharedPrefs.getBoolean("use_service", true)) {
+            if(sharedPrefs.getString("run_as", "popup").equals("popup")) {
                 PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
                 // get the pending intent of the notification and package name
@@ -48,13 +46,12 @@ public class NotificationListener extends NotificationListenerService {
                 String[] activeApps = Utils.loadArray(this);
 
                 // check if this should run or not under the lockscreen
-                if(pm.isScreenOn() || (!pm.isScreenOn() && sharedPrefs.getBoolean("unlock_settings", true)))
-                {
+                if(pm.isScreenOn() || (!pm.isScreenOn() && sharedPrefs.getBoolean("unlock_settings", true))) {
                     for (int i = 0; i < activeApps.length; i++) {
                         if (activeApps[i].equals(creatorPackage)) {
                             pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-                            if (pm.isScreenOn()) {
+                            if (pm.isScreenOn() && !Utils.checkRunning(creatorPackage)) {
                                 // if app is to be used, then apply the pending intent with added flag for multiwindow
                                 try {
                                     pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
@@ -71,8 +68,7 @@ public class NotificationListener extends NotificationListenerService {
                         }
                     }
                 }
-            } else // if the user has it set up to open in halo from the notifications
-            {
+            } else {
                 //TODO: Make the actual implementation
             }
         }
