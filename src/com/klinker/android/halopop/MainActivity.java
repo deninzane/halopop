@@ -251,6 +251,11 @@ public class MainActivity extends PreferenceActivity {
                 .setTitle(R.string.notification_listener_title)
                 .setPositiveButton(R.string.notification_listener_continue, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                                .edit()
+                                .putBoolean("firstrun", false)
+                                .commit();
+
                         // Take user to notification listener settings page
                         startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
                     }

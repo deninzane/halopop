@@ -51,7 +51,7 @@ public class NotificationListener extends NotificationListenerService {
                         if (activeApps[i].equals(creatorPackage)) {
                             pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-                            if (pm.isScreenOn() && !Utils.checkRunning(creatorPackage)) {
+                            if (pm.isScreenOn() && !Utils.checkRunning(creatorPackage, this)) {
                                 // if app is to be used, then apply the pending intent with added flag for multiwindow
                                 try {
                                     pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));

@@ -17,6 +17,7 @@
 
 package com.klinker.android.halopop;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -136,7 +137,15 @@ public class Utils {
     }
 
     // check if the current running is the same we are about to start, which we don't want
-    public static boolean checkRunning(String packageName) {
+    public static boolean checkRunning(String packageName, Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
+
+        for (ActivityManager.RunningTaskInfo task : tasks) {
+            if (packageName.equalsIgnoreCase(task.baseActivity.getPackageName()))
+                return true;
+        }
+
         return false;
     }
 }
