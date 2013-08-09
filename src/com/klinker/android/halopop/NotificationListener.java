@@ -51,17 +51,19 @@ public class NotificationListener extends NotificationListenerService {
                         if (activeApps[i].equals(creatorPackage)) {
                             pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-                            if (pm.isScreenOn() && !Utils.checkRunning(creatorPackage, this)) {
-                                // if app is to be used, then apply the pending intent with added flag for multiwindow
-                                try {
-                                    pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
-                                } catch (Exception e) {
-                                    // pending intent was cancelled...
+                            if (!Utils.checkRunning(creatorPackage, this)) {
+                                if (pm.isScreenOn()) {
+                                    // if app is to be used, then apply the pending intent with added flag for multiwindow
+                                    try {
+                                        pIntent.send(this, 0, new Intent().addFlags(Utils.FLAG_PA_MULTIWINDOW));
+                                    } catch (Exception e) {
+                                        // pending intent was cancelled...
+                                    }
+                                } else {
+                                    // Store pending intent to be activated when screen unlocked
+                                    UnlockReceiver.openApp = true;
+                                    UnlockReceiver.pIntent = pIntent;
                                 }
-                            } else {
-                                // Store pending intent to be activated when screen unlocked
-                                UnlockReceiver.openApp = true;
-                                UnlockReceiver.pIntent = pIntent;
                             }
 
                             break;
